@@ -1,6 +1,13 @@
 # Task Management API
 
-Laravel API built for the 2026 Laravel Engineer Intern take-home assignment For Cytonn .
+Laravel API built for the 2026 Laravel Engineer Intern take-home assignment for Cytonn.
+
+## Submission Details
+
+- Live URL: `https://cytonn-production-cffc.up.railway.app`
+- Hosting platform: `Railway`
+- Database used: `MySQL`
+- Framework: `Laravel 13`
 
 ## Features
 
@@ -79,6 +86,8 @@ http://127.0.0.1:8000
 ```bash
 php artisan test
 ```
+
+If feature tests fail locally with `could not find driver` for SQLite, install the PHP SQLite extension for your local PHP version and rerun the tests.
 
 ## Database Schema
 
@@ -294,7 +303,7 @@ Status code: `403 Forbidden`
 
 ## Deployment Guide
 
-This API can be deployed on Railway or Render with a MySQL database.
+This API is deployed on Railway with a MySQL database.
 
 ### Before Deployment
 
@@ -362,7 +371,6 @@ php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT
 curl https://your-railway-url/api/tasks
 ```
 
-
 ### Post-Deployment Checks
 
 After deployment, verify:
@@ -373,3 +381,37 @@ After deployment, verify:
 - `DELETE /api/tasks/{id}` only deletes `done` tasks
 - `GET /api/tasks/report?date=YYYY-MM-DD` returns the summary
 
+## Submission Checklist
+
+- Source code pushed to GitHub
+- Laravel API routes working locally and on Railway
+- Live hosted URL included in this README
+- Database used explicitly stated as MySQL
+- SQL dump file exported and attached to the submission
+- Production API smoke tests run against the Railway URL
+
+## SQL Dump
+
+The assignment asks for a SQL dump if a database is used. Export the dump from the Railway MySQL database after the schema is migrated.
+
+Example using the Railway connection values:
+
+```bash
+mysqldump \
+  -h "$DB_HOST" \
+  -P "$DB_PORT" \
+  -u "$DB_USERNAME" \
+  -p"$DB_PASSWORD" \
+  "$DB_DATABASE" > task_api_mysql_dump.sql
+```
+
+If Railway gives you a public MySQL connection string, you can also extract the host, port, username, password, and database from it and run the same command.
+
+Recommended checks after exporting:
+
+```bash
+ls -lh task_api_mysql_dump.sql
+sed -n '1,40p' task_api_mysql_dump.sql
+```
+
+Include `task_api_mysql_dump.sql` with your final submission if the recruiter expects the dump alongside the code.
